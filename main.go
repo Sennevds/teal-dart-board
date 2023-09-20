@@ -19,13 +19,18 @@ var (
 
 func main() {
 	// Generate uploads directory
+	path, err := os.Getwd()
+	logger.Infof("Current dir: %+v", path)
 	if err := os.MkdirAll("./uploads", os.ModePerm); err != nil {
 		logger.Panicf("Unable to create uploads directory: %+v", err)
+	}
+	if err := os.MkdirAll("./database", os.ModePerm); err != nil {
+		logger.Panicf("Unable to create database directory: %+v", err)
 	}
 	// Setup DB
 	dbconfig := &config.DBConfig{
 		Driver:   "sqlite3",
-		Filename: "./dascr.db",
+		Filename: "./database/dascr.db",
 	}
 	if db, err = database.SetupDB(dbconfig); err != nil {
 		logger.Panicf("Unable to create database: %+v", err)

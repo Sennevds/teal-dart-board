@@ -3,6 +3,8 @@ services:
   backend:
     build: .
     image: dascr/backend:v1
+    volumes:
+      - ./data:/database
     ports:
       - "8000:8000"
     environment:
